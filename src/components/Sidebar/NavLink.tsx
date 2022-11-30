@@ -17,7 +17,7 @@ export function NavLink({
   ...rest
 }: NavLinkProps) {
   return (
-    <ActiveLink href={href} passHref target={target}>
+    <ActiveLink href={href} target={target} shouldMatchHref passHref>
       <Text display="flex" alignItems="center" {...rest}>
         {icon && <Icon as={icon} fontSize="20" />}
         <Text ml="4" fontWeight="medium">
