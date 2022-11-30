@@ -1,16 +1,45 @@
-import { Flex, Text } from "@chakra-ui/react";
-import ReactHtmlParser from "html-react-parser";
+import { Container, Flex } from "@chakra-ui/react";
 
-type Project = {
-  title: string;
-  description: string;
-  slug: string;
+import { Gallery } from "./Gallery";
+import { Description } from "./Description";
+import { Tags } from "./Tags";
+
+type ImageType = {
+  alt?: string;
+  copyright?: string;
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  url: string;
 };
 
-export const Project: React.FC<Project> = ({ title, description, slug }) => {
+type Project = {
+  tags: string[];
+  title: string;
+  slug: string;
+  description: any;
+  images: Array<{
+    image: ImageType;
+  }>;
+};
+
+export const Project: React.FC<Project> = ({ tags, images, description }) => {
   return (
     <Flex flexDir="column" w="full" gap={2}>
-      <Text>{ReactHtmlParser(description)}</Text>
+      <Container
+        as={Flex}
+        gap={4}
+        flexDir="column"
+        mx="auto"
+        maxW="container.lg"
+      >
+        <Tags tags={tags} />
+
+        <Description description={description} />
+
+        <Gallery images={images.map(({ image }) => ({ ...image }))} />
+      </Container>
     </Flex>
   );
 };
