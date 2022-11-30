@@ -1,4 +1,5 @@
 import { Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { memo } from "react";
 
@@ -16,6 +17,14 @@ export const ProjectComponent: React.FC<ProjectProps> = ({
   return (
     <Link href={`/projects/${slug}`} passHref>
       <Flex
+        as={motion.div}
+        variants={{
+          hidden: { y: 20, opacity: 0 },
+          visible: {
+            y: 0,
+            opacity: 1,
+          },
+        }}
         flexDir="column"
         alignItems="flex-start"
         _hover={{ cursor: "pointer", color: "pink.500" }}

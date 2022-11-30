@@ -1,4 +1,5 @@
 import { Container, Flex, Heading } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { memo } from "react";
 import { Project } from "../Project";
 
@@ -26,9 +27,28 @@ export const ProjectsListComponent: React.FC<ProjectsListProps> = ({
           Últimos Projetos...
         </Heading>
 
-        {projects.map((project) => (
-          <Project key={project.slug} {...project} />
-        ))}
+        <Flex
+          flexDir="column"
+          gap={8}
+          as={motion.div}
+          variants={{
+            hidden: { opacity: 1, scale: 0 },
+            visible: {
+              opacity: 1,
+              scale: 1,
+              transition: {
+                delayChildren: 0.3,
+                staggerChildren: 0.2,
+              },
+            },
+          }}
+          initial="hidden"
+          animate="visible"
+        >
+          {projects.map((project) => (
+            <Project key={project.slug} {...project} />
+          ))}
+        </Flex>
       </Container>
     </Flex>
   );
