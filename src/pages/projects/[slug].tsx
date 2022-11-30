@@ -1,41 +1,59 @@
-import { Fragment } from "react";
+import { Fragment, useMemo } from "react";
 import { Flex } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
 import Head from "next/head";
+import { PrismicDocument } from "@prismicio/types";
+import { asText } from "@prismicio/helpers";
 
 import { Aside } from "@/components/Aside";
 import { Footer } from "@/components/Footer";
 import { Navbar } from "@/components/Navbar";
 import { Project } from "@/components/Project";
 import { Banner } from "@/components/Banner";
+import { getPrismicClient } from "@/services/prismic";
 
-const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla
-facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla
-facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla`;
-
-const project = {
-  title: "Projeto 1",
-  description,
-  slug: "projeto-1",
+type ImageType = {
+  alt?: string;
+  copyright?: string;
+  dimensions: {
+    width: number;
+    height: number;
+  };
+  url: string;
 };
 
 type Project = {
-  title: string;
-  description: string;
   slug: string;
-  images?: string[];
+  title: string;
+  description: any;
+  short_description: string;
+  tags: string[];
+  images: Array<{
+    image: ImageType;
+  }>;
 };
 interface ProjectProps {
-  project: Project;
+  response: PrismicDocument<Record<string, any>, string, string>;
 }
 
-export default function ProjectPage({ project }: ProjectProps) {
+export default function ProjectPage({ response }: ProjectProps) {
+  const project: Project = useMemo(
+    () => ({
+      slug: response.uid!,
+      title: asText(response.data.title)!,
+      short_description: asText(response.data.description)!,
+      description: response.data.description,
+      images: response.data.images,
+      tags: response.tags,
+    }),
+    [response]
+  );
+
   return (
     <Fragment>
       <Head>
         <title>Mário Santos - {project.title}</title>
-        <meta name="description" content={project.description} />
+        <meta name="description" content={project.short_description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -59,18 +77,25 @@ export default function ProjectPage({ project }: ProjectProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
+  const prismic = getPrismicClient({});
+  const { results } = await prismic.getByType("projects", { pageSize: 5 });
+
   return {
-    props: {
-      project,
-    },
-    revalidate: 60 * 60 * 4, // 4 hours
+    paths: results.map((post) => ({ params: { slug: post.uid! } })),
+    fallback: true,
   };
 };
 
-export const getStaticPaths: GetStaticPaths = async () => {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const slug = params!.slug;
+  const prismic = getPrismicClient({});
+  const response = await prismic.getByUID("projects", String(slug));
+
   return {
-    paths: [{ params: { slug: "projeto-1" } }],
-    fallback: true,
+    props: {
+      response,
+    },
+    revalidate: 60 * 60 * 4, // 4 hours
   };
 };
