@@ -44,7 +44,7 @@ export const ProjectComponent: React.FC<ProjectProps> = ({
   );
 };
 
-export const Project = memo(
+export const ProjectCard = memo(
   ProjectComponent,
   (prev, next) => prev.slug === next.slug
 );

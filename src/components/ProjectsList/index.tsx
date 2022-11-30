@@ -1,7 +1,7 @@
 import { Container, Flex, Heading } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { memo } from "react";
-import { Project } from "../Project";
+import { ProjectCard } from "../ProjectCard";
 
 export interface ProjectsListProps {
   projects: Array<{
@@ -46,7 +46,7 @@ export const ProjectsListComponent: React.FC<ProjectsListProps> = ({
           animate="visible"
         >
           {projects.map((project) => (
-            <Project key={project.slug} {...project} />
+            <ProjectCard key={project.slug} {...project} />
           ))}
         </Flex>
       </Container>
