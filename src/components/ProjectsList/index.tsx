@@ -4,6 +4,7 @@ import { memo } from "react";
 import { ProjectCard } from "../ProjectCard";
 
 export interface ProjectsListProps {
+  title?: string;
   projects: Array<{
     title: string;
     description: string;
@@ -12,6 +13,7 @@ export interface ProjectsListProps {
 }
 
 export const ProjectsListComponent: React.FC<ProjectsListProps> = ({
+  title = "Últimos Projetos...",
   projects,
 }) => {
   return (
@@ -24,7 +26,7 @@ export const ProjectsListComponent: React.FC<ProjectsListProps> = ({
         gap={8}
       >
         <Heading textTransform="uppercase" color="pink.500" fontSize="lg">
-          Últimos Projetos...
+          {title}
         </Heading>
 
         <Flex
