@@ -4,10 +4,9 @@ import { PathsLink } from "./PathsLink";
 
 export interface BannerProps {
   title: string;
-  image: string;
 }
 
-export const Banner: React.FC<BannerProps> = ({ title, image }) => {
+export const Banner: React.FC<BannerProps> = ({ title }) => {
   const { query } = useRouter();
 
   return (
