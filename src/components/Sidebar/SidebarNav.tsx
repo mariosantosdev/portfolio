@@ -1,7 +1,13 @@
 import { Stack } from "@chakra-ui/react";
 import { RiFolder5Line, RiHomeLine, RiFilePaperLine } from "react-icons/ri";
 
-import { SiGithub, SiLinkedin, SiTwitter, SiInstagram } from "react-icons/si";
+import {
+  SiGithub,
+  SiLinkedin,
+  SiTwitter,
+  SiInstagram,
+  SiGmail,
+} from "react-icons/si";
 
 import { NavLink } from "./NavLink";
 import { NavSection } from "./NavSection";
@@ -48,6 +54,15 @@ export function SidebarNav() {
           target="_blank"
         >
           Instagram
+        </NavLink>
+        <NavLink
+          icon={SiGmail}
+          href={`mailto:mariodev7@gmail.com?Subject=${encodeURI(
+            "Contato através do portfólio"
+          )}`}
+          target="_blank"
+        >
+          Email
         </NavLink>
         <NavLink
           icon={RiFilePaperLine}
