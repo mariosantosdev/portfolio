@@ -17,7 +17,7 @@ export function SidebarNav() {
     <Stack spacing="12" align="flex-start">
       {/* Geral */}
       <NavSection title="Geral">
-        <NavLink icon={RiHomeLine} href="/">
+        <NavLink icon={RiHomeLine} href="/" shouldMatchHref>
           Inicio
         </NavLink>
         <NavLink icon={RiFolder5Line} href="/projects">

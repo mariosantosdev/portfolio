@@ -35,7 +35,9 @@ export const Navbar: React.FC = () => {
 
         {isLargeScreen ? (
           <Flex>
-            <NavLink href="/">Inicio</NavLink>
+            <NavLink href="/" shouldMatchHref>
+              Inicio
+            </NavLink>
             <NavLink href="/projects">Projetos</NavLink>
           </Flex>
         ) : (
