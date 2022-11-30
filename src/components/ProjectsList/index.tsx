@@ -14,7 +14,7 @@ export const ProjectsListComponent: React.FC<ProjectsListProps> = ({
   projects,
 }) => {
   return (
-    <Flex as="main" w="full" my={12}>
+    <Flex as="main" w="full">
       <Container
         as={Flex}
         maxW="container.lg"
