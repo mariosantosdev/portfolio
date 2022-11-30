@@ -8,55 +8,15 @@ import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { Navbar } from "@/components/Navbar";
 import { ProjectsList } from "@/components/ProjectsList";
-
-const description = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla
-facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla
-facilisi. Nulla facilisi. Nulla facilisi. Nulla facilisi. Nulla`;
-
-const projects = [
-  {
-    title: "Projeto 1",
-    description,
-    slug: "projeto-1",
-  },
-  {
-    title: "Projeto 2",
-    description,
-    slug: "projeto-2",
-  },
-  {
-    title: "Projeto 3",
-    description,
-    slug: "projeto-3",
-  },
-  {
-    title: "Projeto 4",
-    description,
-    slug: "projeto-4",
-  },
-  {
-    title: "Projeto 5",
-    description,
-    slug: "projeto-5",
-  },
-  {
-    title: "Projeto 6",
-    description,
-    slug: "projeto-6",
-  },
-  {
-    title: "Projeto 7",
-    description,
-    slug: "projeto-7",
-  },
-];
+import { getPrismicClient } from "@/services/prismic";
+import { formatProjects } from "@/utils/formatPrismic";
 
 type Project = {
   title: string;
   description: string;
   slug: string;
 };
+
 interface HomeProps {
   projects: Project[];
 }
@@ -91,9 +51,14 @@ export default function Home({ projects }: HomeProps) {
 }
 
 export const getStaticProps: GetStaticProps = async () => {
+  const prismic = getPrismicClient({});
+  const { results } = await prismic.getByType("projects", {
+    pageSize: 5,
+  });
+
   return {
     props: {
-      projects,
+      projects: formatProjects(results),
     },
     revalidate: 60 * 60 * 4, // 4 hours
   };
