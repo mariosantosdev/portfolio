@@ -5,7 +5,7 @@ export const HeroLabel: React.FC<FlexProps> = (props) => {
   return (
     <Flex
       flexDir="column"
-      textAlign={["center", "start"]}
+      textAlign={{ base: "center", md: "start" }}
       color="white"
       maxW={320}
       {...props}
@@ -14,7 +14,7 @@ export const HeroLabel: React.FC<FlexProps> = (props) => {
       <Heading fontSize="3.5rem">Mário</Heading>
 
       <Text color="pink.500">FullStack Developer</Text>
-      <Text textAlign={["center", "start"]}>
+      <Text>
         Eu crio projetos com diversos objetivos, seja bem vindo(a) ao meu
         portfolio!
       </Text>
