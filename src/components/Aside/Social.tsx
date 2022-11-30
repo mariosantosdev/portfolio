@@ -1,5 +1,11 @@
 import { ButtonProps, Flex, Heading, Icon, IconButton } from "@chakra-ui/react";
-import { SiGithub, SiLinkedin, SiTwitter, SiInstagram } from "react-icons/si";
+import {
+  SiGithub,
+  SiLinkedin,
+  SiTwitter,
+  SiInstagram,
+  SiGmail,
+} from "react-icons/si";
 import { IconType } from "react-icons";
 import Link from "next/link";
 
@@ -34,6 +40,14 @@ const socialLinks: SocialLink[] = [
     href: "https://www.instagram.com/mariosantos.dev/",
     icon: SiInstagram,
     colorScheme: "pink",
+  },
+  {
+    title: "Email",
+    href: `mailto:mariodev7@gmail.com?Subject=${encodeURI(
+      "Contato através do portfólio"
+    )}`,
+    icon: SiGmail,
+    colorScheme: "red",
   },
 ];
 
