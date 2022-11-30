@@ -4,7 +4,7 @@ import { ActiveLink } from "@/components/ActiveLink";
 
 interface NavLinkProps extends ChakraTextProps {
   href: string;
-  icon: ElementType;
+  icon?: ElementType;
   children: string;
   target?: HTMLAttributeAnchorTarget;
 }
@@ -19,7 +19,7 @@ export function NavLink({
   return (
     <ActiveLink href={href} passHref target={target}>
       <Text display="flex" alignItems="center" {...rest}>
-        <Icon as={icon} fontSize="20" />
+        {icon && <Icon as={icon} fontSize="20" />}
         <Text ml="4" fontWeight="medium">
           {children}
         </Text>
