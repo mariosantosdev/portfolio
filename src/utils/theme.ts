@@ -6,16 +6,21 @@ export const config: any = {
 };
 
 export const theme = extendTheme({
-  ...config,
   colors: {
     bgHeader: "#0b1026",
   },
   styles: {
-    global: (props: any) => ({
+    // global: (props: any) => ({
+    //   body: {
+    //     bg: props.colorMode === "dark" ? "gray.800" : "whiteAlpha.900",
+    //     color: props.colorMode === "dark" ? "white" : "gray.800",
+    //   },
+    // }),
+    global: {
       body: {
-        bg: props.colorMode === "dark" ? "gray.800" : "whiteAlpha.900",
-        color: props.colorMode === "dark" ? "white" : "gray.800",
+        bg: "whiteAlpha.900",
+        color: "gray.800",
       },
-    }),
+    },
   },
 });
