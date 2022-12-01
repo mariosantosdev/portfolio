@@ -6,6 +6,7 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { RiMenu2Line } from "react-icons/ri";
+import Link from "next/link";
 import { useSidebarDrawer } from "@/contexts/SidebarDrawerContext";
 import { NavLink } from "@/components/Sidebar/NavLink";
 
@@ -31,7 +32,9 @@ export const Navbar: React.FC = () => {
         justifyContent="space-between"
       >
         {/* Brand Logo */}
-        <Logo />
+        <Link href="/" passHref>
+          <Logo />
+        </Link>
 
         {isLargeScreen ? (
           <Flex>
