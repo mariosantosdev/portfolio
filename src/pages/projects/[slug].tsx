@@ -58,7 +58,7 @@ export default function ProjectPage({ response }: ProjectProps) {
   );
 
   return (
-    <Fragment>
+    <Flex flexDir="column" minH="100vh">
       <Head>
         <title>Mário Santos - {project.title}</title>
         <meta name="description" content={project.short_description} />
@@ -75,13 +75,14 @@ export default function ProjectPage({ response }: ProjectProps) {
         my={12}
         gap={[12, 12, 4]}
         flexDir={["column", "column", "row"]}
+        flex={1}
       >
         <Project {...project} />
         <Aside />
       </Flex>
 
       <Footer />
-    </Fragment>
+    </Flex>
   );
 }
 
