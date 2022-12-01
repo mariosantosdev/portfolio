@@ -1,38 +1,73 @@
-import { Box, Flex, Heading, SimpleGrid } from "@chakra-ui/react";
-import Image from "next/image";
+import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
+import { memo, useState } from "react";
+import { Gallery as GridGallery } from "react-grid-gallery";
+import Lightbox from "react-image-lightbox";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
+
+import "react-image-lightbox/style.css";
+
+type ImageType = {
+  alt?: string;
+  copyright?: string;
+  src: string;
+  width: number;
+  height: number;
+};
 
 interface GalleryProps {
-  images: Array<{
-    alt?: string;
-    copyright?: string;
-    dimensions: {
-      width: number;
-      height: number;
-    };
-    url: string;
-  }>;
+  images: ImageType[];
 }
 
-export const Gallery: React.FC<GalleryProps> = ({ images }) => {
+const GalleryComponent: React.FC<GalleryProps> = ({ images }) => {
+  const rowHeight = useBreakpointValue({
+    base: 250,
+    sm: 250,
+  });
+  const [index, setIndex] = useState(-1);
+
+  const currentImage = images[index];
+  const nextIndex = (index + 1) % images.length;
+  const nextImage = images[nextIndex] || currentImage;
+  const prevIndex = (index + images.length - 1) % images.length;
+  const prevImage = images[prevIndex] || currentImage;
+
+  const handleClick = (index: number, item: ImageType) => setIndex(index);
+  const handleClose = () => {
+    setIndex(-1);
+    enableBodyScroll(document.body);
+  };
+  const afterOpen = () => disableBodyScroll(document.body);
+  const handleMovePrev = () => setIndex(prevIndex);
+  const handleMoveNext = () => setIndex(nextIndex);
+
   return (
     <Flex flexDir="column" gap={4}>
       <Heading textTransform="uppercase" color="pink.500" fontSize="lg">
         Galeria
       </Heading>
 
-      <SimpleGrid columns={[1, 1, 2]} gap={4}>
-        {images.map((image) => (
-          <Box key={image?.alt || image.url} bg="red" w="fit-content">
-            <Image
-              alt={image?.alt || ""}
-              src={image.url}
-              width={640}
-              height={640}
-              style={{ objectFit: "contain" }}
-            />
-          </Box>
-        ))}
-      </SimpleGrid>
+      <GridGallery
+        images={images}
+        onClick={handleClick}
+        enableImageSelection={false}
+        margin={4}
+      />
+      {Boolean(currentImage) && (
+        <Lightbox
+          mainSrc={currentImage.src}
+          mainSrcThumbnail={currentImage.src}
+          nextSrc={nextImage.src}
+          nextSrcThumbnail={nextImage.src}
+          prevSrc={prevImage.src}
+          prevSrcThumbnail={prevImage.src}
+          onAfterOpen={afterOpen}
+          onCloseRequest={handleClose}
+          onMovePrevRequest={handleMovePrev}
+          onMoveNextRequest={handleMoveNext}
+        />
+      )}
     </Flex>
   );
 };
+
+export const Gallery = memo(GalleryComponent);
