@@ -11,6 +11,7 @@ import { Navbar } from "@/components/Navbar";
 import { Project } from "@/components/Project";
 import { Banner } from "@/components/Banner";
 import { getPrismicClient } from "@/services/prismic";
+import { useRouter } from "next/router";
 
 type ImageType = {
   alt?: string;
@@ -37,6 +38,13 @@ interface ProjectProps {
 }
 
 export default function ProjectPage({ response }: ProjectProps) {
+  const router = useRouter();
+
+  if (router.isFallback) {
+    return <div>Carregando...</div>;
+  }
+
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   const project: Project = useMemo(
     () => ({
       slug: response.uid!,
