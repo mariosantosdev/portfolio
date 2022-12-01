@@ -1,16 +1,13 @@
 import { Memoji } from "@/components/Memoji";
 import { Box, Button, Container, Flex, Heading, Text } from "@chakra-ui/react";
-import Head from "next/head";
 import Link from "next/link";
 import { Fragment } from "react";
+import { NextSeo } from "next-seo";
 
 export default function NotFound() {
   return (
     <Fragment>
-      <Head>
-        <title>Mário Santos - Página não encontrada</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo title="Mário Santos - Página não encontrada" noindex={true} />
 
       <Container maxW="container.lg" h="100vh">
         <Flex

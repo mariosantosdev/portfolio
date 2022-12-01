@@ -1,9 +1,10 @@
-import { Fragment, useMemo } from "react";
+import { useMemo } from "react";
 import { Flex } from "@chakra-ui/react";
 import { GetStaticPaths, GetStaticProps } from "next";
-import Head from "next/head";
 import { PrismicDocument } from "@prismicio/types";
 import { asText } from "@prismicio/helpers";
+import { NextSeo } from "next-seo";
+import { useRouter } from "next/router";
 
 import { Aside } from "@/components/Aside";
 import { Footer } from "@/components/Footer";
@@ -11,7 +12,6 @@ import { Navbar } from "@/components/Navbar";
 import { Project } from "@/components/Project";
 import { Banner } from "@/components/Banner";
 import { getPrismicClient } from "@/services/prismic";
-import { useRouter } from "next/router";
 
 type ImageType = {
   alt?: string;
@@ -59,11 +59,25 @@ export default function ProjectPage({ response }: ProjectProps) {
 
   return (
     <Flex flexDir="column" minH="100vh">
-      <Head>
-        <title>Mário Santos - {project.title}</title>
-        <meta name="description" content={project.short_description} />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+      <NextSeo
+        title={`Mário Santos - ${project.title}`}
+        description={project.short_description}
+        openGraph={{
+          title: `Mário Santos - ${project.title}`,
+          description: project.short_description,
+          images: [
+            {
+              url:
+                project.images[0]?.image?.url ||
+                "devmario.me/images/memoji-writting.png",
+              width: project.images[0]?.image.dimensions.width,
+              height: project.images[0]?.image.dimensions.height,
+              alt: project.images[0]?.image.alt,
+            },
+          ],
+          siteName: "Mário Santos - Portfolio",
+        }}
+      />
 
       <Navbar />
 
