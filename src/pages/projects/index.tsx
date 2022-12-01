@@ -30,10 +30,17 @@ export default function Projects({ projects }: ProjectsProps) {
 
       <Navbar />
 
-      <Container as={Flex} maxW="container.lg" w="full">
+      <Container
+        as={Flex}
+        maxW="container.lg"
+        w="full"
+        justifyContent={["center", "center", "flex-start"]}
+      >
         <Memoji
           image="/images/memoji-writting.png"
-          maxW={{ base: "100%", md: "20%" }}
+          maxW={["100%", 220]}
+          w={{ base: "full", md: "20%" }}
+          display="flex"
         />
       </Container>
 
@@ -46,7 +53,7 @@ export default function Projects({ projects }: ProjectsProps) {
         flex={1}
       >
         <ProjectsList title="Meus Projetos" projects={projects} />
-        <Aside />
+        <Aside display={{ base: "none", md: "flex" }} />
       </Flex>
 
       <Footer />
