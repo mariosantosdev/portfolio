@@ -1,4 +1,4 @@
-import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
+import { Flex, Heading, Text, useBreakpointValue } from "@chakra-ui/react";
 import { memo, useState } from "react";
 import { Gallery as GridGallery } from "react-grid-gallery";
 import Lightbox from "react-image-lightbox";
@@ -45,6 +45,10 @@ const GalleryComponent: React.FC<GalleryProps> = ({ images }) => {
       <Heading textTransform="uppercase" color="pink.500" fontSize="lg">
         Galeria
       </Heading>
+
+      {!images.length && (
+        <Text textColor="gray">Nenhuma foto foi anexada a esse projeto.</Text>
+      )}
 
       <GridGallery
         images={images}
