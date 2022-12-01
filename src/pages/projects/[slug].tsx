@@ -32,6 +32,8 @@ type Project = {
   images: Array<{
     image: ImageType;
   }>;
+  demo?: string;
+  repository?: string;
 };
 interface ProjectProps {
   response: PrismicDocument<Record<string, any>, string, string>;
@@ -53,6 +55,8 @@ export default function ProjectPage({ response }: ProjectProps) {
       description: response.data.description,
       images: response.data?.images || [],
       tags: response.tags,
+      demo: response.data?.demo?.url || null,
+      repository: response.data?.repository?.url || null,
     }),
     [response]
   );
@@ -81,7 +85,11 @@ export default function ProjectPage({ response }: ProjectProps) {
 
       <Navbar />
 
-      <Banner title={project.title} />
+      <Banner
+        title={project.title}
+        demo={project.demo}
+        repository={project.repository}
+      />
 
       <Flex
         maxW="container.lg"
