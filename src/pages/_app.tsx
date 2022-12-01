@@ -16,6 +16,15 @@ export default function App({ Component, pageProps }: AppProps) {
           locale: "pt_BR",
           url: "https://www.devmario.me",
           siteName: "Mário Santos - Portfolio",
+          images: [
+            {
+              url: "https://www.devmario.me/images/memoji-writting.png",
+              width: 800,
+              height: 600,
+              alt: "Mário Memoji",
+              type: "image/png",
+            },
+          ],
         }}
       />
       <SidebarDrawerProvider>
