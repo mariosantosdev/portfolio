@@ -51,7 +51,7 @@ export default function ProjectPage({ response }: ProjectProps) {
       title: asText(response.data.title)!,
       short_description: asText(response.data.description)!,
       description: response.data.description,
-      images: response.data.images,
+      images: response.data?.images || [],
       tags: response.tags,
     }),
     [response]
