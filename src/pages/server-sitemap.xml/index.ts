@@ -10,7 +10,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const projects = formatProjects(rawProjects);
 
   const sitemapProjects = projects.map((project) => ({
-    loc: `${baseUrl}/${project.slug}`,
+    loc: `${baseUrl}/projects/${project.slug}`,
     lastmod: new Date().toISOString(),
   }));
 
